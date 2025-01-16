@@ -167,7 +167,7 @@ export type ResolveFormattingContextHook = (
   p2: boolean,
   p3: Css.Ident,
   p4: Css.Ident,
-  p5: Css.Ident,
+  p5: Css.Val,
   p6: boolean,
 ) => Vtree.FormattingContext;
 

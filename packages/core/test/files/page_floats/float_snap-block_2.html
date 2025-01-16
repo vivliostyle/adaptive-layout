@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>float: snap-block</title>
+    <title>float: snap-block (2 values)</title>
     <style>
       @page {
         size: 540px;
@@ -29,7 +29,6 @@
       }
       .column-float,
       .page-float {
-        float: snap-block;
         height: 200px;
         border: 2px blue solid;
         width: 90%;
@@ -39,27 +38,29 @@
       }
       .column-float {
         float-reference: column;
+        float: snap-block inline-end;
       }
       .page-float {
         float-reference: page;
+        float: snap-block inline-start;
       }
     </style>
   </head>
   <body>
     <section>
       <div class="column-float">
-        This float should be at the top of the page 1, column 1
+        This float should be at the top right of the page 1, column 1
       </div>
       <p>Text on page 1, column 1</p>
       <div class="column-float">
-        This float should be at the bottom of the page 1, column 1
+        This float should be at the bottom right of the page 1, column 1
       </div>
       <p>Text on page 1, column 1</p>
       <div class="column-float">
-        This float should be at the top of the page 1, column 2
+        This float should be at the top right of the page 1, column 2
       </div>
       <div class="column-float">
-        This float should be at the top of the page 1, column 2
+        This float should be at the top right of the page 1, column 2
       </div>
       <p>Text on page 1, column 1</p>
       <p>Text on page 1, column 2</p>
@@ -70,18 +71,18 @@
       <p>Text on page 2, column 1</p>
       <p>Text on page 2, column 1</p>
       <div class="page-float">
-        This float should be at the top of the page 2
+        This float should be at the top left of the page 2
       </div>
       <p>Text on page 2, column 1</p>
       <div class="page-float">
-        This float should be at the bottom of the page 2
+        This float should be at the bottom left of the page 2
       </div>
       <p>Text on page 2, column 2</p>
       <div class="page-float">
-        This float should be at the top of the page 3
+        This float should be at the top left of the page 3
       </div>
       <div class="page-float">
-        This float should be at the top of the page 3
+        This float should be at the top left of the page 3
       </div>
       <p>Text on page 2, column 2</p>
       <p>Text on page 2, column 2</p>
@@ -95,28 +96,28 @@
     <section>
       <p>Text on page 4, column 1</p>
       <div class="column-float">
-        This float should be at the top of the page 4, column 1
+        This float should be at the top right of the page 4, column 1
       </div>
       <p>Text on page 4, column 1</p>
       <div class="page-float">
-        This float should be at the bottom of the page 4
+        This float should be at the bottom left of the page 4
       </div>
     </section>
     <section>
       <p>Text on page 5, column 1</p>
       <div class="page-float">
-        This float should be at the top of the page 5
+        This float should be at the top left of the page 5
       </div>
       <p>Text on page 5, column 1</p>
       <div class="column-float">
-        This float should be at the bottom of the page 5, column 1
+        This float should be at the bottom right of the page 5, column 1
       </div>
     </section>
     <section>
       <p>Text on page 6, column 1</p>
       <p>Text on page 6, column 1</p>
       <div class="column-float">
-        This float should be at the bottom of the page 6, column 1
+        This float should be at the bottom right of the page 6, column 1
       </div>
       <p>Text on page 6, column 1</p>
       <p>Text on page 6, column 2</p>
@@ -128,7 +129,7 @@
       <p>Text on page 6, column 2</p>
       <p>Text on page 6, column 2</p>
       <div class="page-float">
-        This float should be at the top of the page 6
+        This float should be at the top left of the page 6
       </div>
     </section>
     <section>
@@ -140,10 +141,10 @@
       <p>Text on page 7, column 1</p>
       <p>Text on page 7, column 1</p>
       <div class="column-float small">
-        (A) This float should be at the bottom of the page 6, column 1
+        (A) This float should be at the bottom right of the page 6, column 1
       </div>
       <div class="column-float small">
-        (B) This float should be at the bottom of the page 6, column 1
+        (B) This float should be at the bottom right of the page 6, column 1
       </div>
     </section>
   </body>

@@ -679,6 +679,7 @@ export const ident: { [key: string]: Ident } = {
   same: getName("same"),
   scale: getName("scale"),
   snap_block: getName("snap-block"),
+  snap_inline: getName("snap-inline"),
   solid: getName("solid"),
   spread: getName("spread"),
   _static: getName("static"),

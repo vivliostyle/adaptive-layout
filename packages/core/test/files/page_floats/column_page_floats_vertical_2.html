@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Column page floats (vertical writing-mode, 2 values)</title>
+    <style>
+      @page {
+        size: 620px;
+        margin: 10px;
+      }
+      :root {
+        writing-mode: vertical-rl;
+        column-count: 2;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+        widows: 1;
+        orphans: 1;
+      }
+      body {
+        margin: 8px;
+      }
+      p {
+        background: rgba(100, 100, 100, 0.2);
+        border: blue dashed;
+      }
+      .float {
+        float-reference: column;
+        background: rgba(100, 100, 255, 0.2);
+        height: 75%;
+      }
+      .right.top {
+        float: right top;
+        -ah-float: column right top;
+      }
+      .right.bottom {
+        float: right bottom;
+        -ah-float: column right bottom;
+      }
+      .block-start.inline-end {
+        float: block-start inline-end;
+        -ah-float: column before end;
+      }
+      .left.top {
+        float: left top;
+        -ah-float: column left top;
+      }
+      .left.bottom {
+        float: left bottom;
+        -ah-float: column left bottom;
+      }
+      .block-end.inline-start {
+        float: block-end inline-start;
+        -ah-float: column after start;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      (1) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (2) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns.
+    </p>
+    <p>
+      (3) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <div class="float left top">
+      (a) Background of page floats is lightblue. This is a left top float. This
+      is a left top float. This is a left top float. This is a left top float.
+      This is a left top float. This is a left top float. This is a left top
+      float. This is a left top float. This is a left top float.
+    </div>
+    <p>
+      (4) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <div class="float right top">
+      (b) Background of page floats is lightblue. This is a right top float.
+      This is a right top float. This is a right top float. This is a right top
+      float. This is a right top float. This is a right top float. This is a
+      right top float. This is a right top float. This is a right top float.
+      This is a right top float. This is a right top float.
+    </div>
+    <p>
+      (5) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (6) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <div class="float right bottom">
+      (c) Background of page floats is lightblue. This is a right bottom float.
+      This is a right bottom float. This is a right bottom float. This is a
+      right bottom float. This is a right bottom float. This is a right bottom
+      float. This is a right bottom float. This is a right bottom float. This is
+      a right bottom float. This is a right bottom float. This is a right bottom
+      float.
+    </div>
+    <p>
+      (7) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (8) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (9) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (10) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (11) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns.
+    </p>
+    <div class="float left bottom">
+      (d) Background of page floats is lightblue. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float. This is a left bottom float. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float.
+    </div>
+    <p>
+      (12) Background of p elements is lightgray. This is normal text inside two
+      columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <div class="float block-start inline-end">
+      (e) Background of page floats is lightblue. This is a block-start
+      inline-end float. This is a block-start inline-end float. This is a
+      block-start inline-end float. This is a block-start inline-end float. This
+      is a block-start inline-end float. This is a block-start inline-end float.
+      This is a block-start inline-end float. This is a block-start inline-end
+      float. This is a block-start inline-end float. This is a block-start
+      inline-end float.
+    </div>
+    <div class="float block-end inline-start">
+      (f) Background of page floats is lightblue. This is a block-end
+      inline-start float. This is a block-end inline-start float. This is a
+      block-end inline-start float. This is a block-end inline-start float. This
+      is a block-end inline-start float. This is a block-end inline-start float.
+      This is a block-end inline-start float. This is a block-end inline-start
+      float. This is a block-end inline-start float.
+    </div>
+    <div class="float right top">
+      (g) Background of page floats is lightblue. This is a right top float.
+      This is a right top float. This is a right top float. This is a right top
+      float. This is a right top float. This is a right top float. This is a
+      right top float. This is a right top float. This is a right top float.
+      This is a right top float. This is a right top float.
+    </div>
+    <p>
+      (13) Background of p elements is light-gray. This is normal text inside
+      two columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <p>
+      (14) Background of p elements is light-gray. This is normal text inside
+      two columns. This is normal text inside two columns. This is normal text
+      inside two columns. This is normal text inside two columns. This is normal
+      text inside two columns. This is normal text inside two columns.
+    </p>
+    <div class="float right bottom">
+      (h) Background of page floats is lightblue. This is a right bottom float.
+      This is a right bottom float. This is a right bottom float. This is a
+      right bottom float. This is a right bottom float. This is a right bottom
+      float. This is a right bottom float. This is a right bottom float. This is
+      a right bottom float. This is a right bottom float. This is a right bottom
+      float.
+    </div>
+    <div class="float left top">
+      (i) Background of page floats is lightblue. This is a left top float. This
+      is a left top float. This is a left top float. This is a left top float.
+      This is a left top float. This is a left top float. This is a left top
+      float. This is a left top float. This is a left top float.
+    </div>
+    <div class="float block-start inline-end">
+      (j) Background of page floats is lightblue. This is a block-start
+      inline-end float. This is a block-start inline-end float. This is a
+      block-start inline-end float. This is a block-start inline-end float. This
+      is a block-start inline-end float. This is a block-start inline-end float.
+      This is a block-start inline-end float. This is a block-start inline-end
+      float. This is a block-start inline-end float. This is a block-start
+      inline-end float. This is a block-start inline-end float.
+    </div>
+    <div class="float left bottom">
+      (k) Background of page floats is lightblue. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float. This is a left bottom float. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float.
+    </div>
+    <div class="float right top">
+      (l) Background of page floats is lightblue. This is a right top float.
+      This is a right top float. This is a right top float. This is a right top
+      float. This is a right top float. This is a right top float. This is a
+      right top float. This is a right top float. This is a right top float.
+      This is a right top float. This is a right top float.
+    </div>
+    <div class="float block-end inline-start">
+      (m) Background of page floats is lightblue. This is a block-end
+      inline-start float. This is a block-end inline-start float. This is a
+      block-end inline-start float. This is a block-end inline-start float. This
+      is a block-end inline-start float. This is a block-end inline-start float.
+      This is a block-end inline-start float. This is a block-end inline-start
+      float. This is a block-end inline-start float.
+    </div>
+    <div class="float right bottom">
+      (n) Background of page floats is lightblue. This is a right bottom float.
+      This is a right bottom float. This is a right bottom float. This is a
+      right bottom float. This is a right bottom float. This is a right bottom
+      float. This is a right bottom float. This is a right bottom float. This is
+      a right bottom float. This is a right bottom float. This is a right bottom
+      float.
+    </div>
+    <div class="float left bottom">
+      (o) Background of page floats is lightblue. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float. This is a left bottom float. This is a left bottom float.
+      This is a left bottom float. This is a left bottom float. This is a left
+      bottom float.
+    </div>
+  </body>
+</html>

@@ -510,7 +510,7 @@ crop-offset = auto | LENGTH;
 
 /* CSS Page Floats */
 float-reference = inline | column | region | page;
-float = block-start | block-end | inline-start | inline-end | snap-block | snap-inline | left | right | top | bottom | none | footnote;
+float = [ block-start || block-end || inline-start || inline-end || snap-block || snap-inline || left || right || top || bottom] | none | footnote;
 float-min-wrap-block = PPLENGTH;
 
 /* CSS Ruby */

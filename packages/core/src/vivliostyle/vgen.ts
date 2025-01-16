@@ -517,7 +517,7 @@ export class ViewFactory
 
     // Compute values of display, position and float
     const position = computedStyle["position"] as Css.Ident;
-    const float = computedStyle["float"] as Css.Ident;
+    const float = computedStyle["float"];
     const display =
       (computedStyle["display"] as Css.Ident) ||
       ((this.sourceNode as Element).namespaceURI === Base.NS.XHTML
@@ -724,7 +724,7 @@ export class ViewFactory
     firstTime: boolean,
     display: Css.Ident,
     position: Css.Ident,
-    float: Css.Ident,
+    float: Css.Val,
     isRoot: boolean,
   ) {
     const hooks: Plugin.ResolveFormattingContextHook[] = Plugin.getHooksForName(
@@ -872,7 +872,7 @@ export class ViewFactory
     ).then((shadowParam) => {
       this.nodeContext.nodeShadow = shadowParam;
       const position = computedStyle["position"] as Css.Ident;
-      let floatSide = computedStyle["float"] as Css.Ident;
+      let floatSide = computedStyle["float"];
       let clearSide = computedStyle["clear"] as Css.Ident;
       const writingMode = this.nodeContext.vertical
         ? Css.ident.vertical_rl
@@ -906,6 +906,7 @@ export class ViewFactory
         clearSide = null;
       }
       let floating =
+        floatSide instanceof Css.SpaceList ||
         floatSide === Css.ident.left ||
         floatSide === Css.ident.right ||
         floatSide === Css.ident.top ||
@@ -915,6 +916,7 @@ export class ViewFactory
         floatSide === Css.ident.block_start ||
         floatSide === Css.ident.block_end ||
         floatSide === Css.ident.snap_block ||
+        floatSide === Css.ident.snap_inline ||
         floatSide === Css.ident.footnote;
       if (floatSide) {
         // Don't want to set it in view DOM CSS.

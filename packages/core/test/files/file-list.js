@@ -403,8 +403,16 @@ module.exports = [
         title: "'Page' page floats",
       },
       {
+        file: "page_floats/page_page_floats_2.html",
+        title: "'Page' page floats (2 values)",
+      },
+      {
         file: "page_floats/page_page_floats_vertical.html",
         title: "'Page' page floats (vertical writing-mode)",
+      },
+      {
+        file: "page_floats/page_page_floats_vertical_2.html",
+        title: "'Page' page floats (vertical writing-mode, 2 values)",
       },
       {
         file: "page_floats/region_page_floats.html",
@@ -419,8 +427,16 @@ module.exports = [
         title: "'Column' page floats",
       },
       {
+        file: "page_floats/column_page_floats_2.html",
+        title: "'Column' page floats (2 values)",
+      },
+      {
         file: "page_floats/column_page_floats_vertical.html",
         title: "'Column' page floats (vertical writing-mode)",
+      },
+      {
+        file: "page_floats/column_page_floats_vertical_2.html",
+        title: "'Column' page floats (vertical writing-mode, 2 values)",
       },
       {
         file: "page_floats/region_page_floats_with_exclusions.html",
@@ -455,8 +471,16 @@ module.exports = [
         title: "Inline page floats",
       },
       {
+        file: "page_floats/inline_page_floats_2.html",
+        title: "Inline page floats (2 values)",
+      },
+      {
         file: "page_floats/inline_page_floats_vertical.html",
         title: "Inline page floats (vertical writing-mode)",
+      },
+      {
+        file: "page_floats/inline_page_floats_vertical_2.html",
+        title: "Inline page floats (vertical writing-mode, 2 values)",
       },
       {
         file: "page_floats/forced_break_and_page_floats.html",
@@ -499,6 +523,10 @@ module.exports = [
         title: "column-span on page floats",
       },
       { file: "page_floats/float_snap-block.html", title: "float: snap-block" },
+      {
+        file: "page_floats/float_snap-block_2.html",
+        title: "float: snap-block (2 values)",
+      },
       {
         file: "page_floats/clear_page_floats.html",
         title: "Clear page floats",

@@ -84,9 +84,9 @@ export function isRunning(position: Css.Val): boolean {
 export function getComputedDisplayValue(
   display: Css.Ident,
   position: Css.Ident,
-  float: Css.Ident,
+  float: Css.Val,
   isRoot: boolean,
-): { display: Css.Ident; position: Css.Ident; float: Css.Ident } {
+): { display: Css.Ident; position: Css.Ident; float: Css.Val } {
   if (display === Css.ident.none) {
     // no need to convert values when 'display' is 'none'
   } else if (isAbsolutelyPositioned(position)) {
@@ -107,7 +107,7 @@ export function getComputedDisplayValue(
 export function isBlock(
   display: Css.Ident,
   position: Css.Ident,
-  float: Css.Ident,
+  float: Css.Val,
   isRoot: boolean,
 ): boolean {
   return (
@@ -149,7 +149,7 @@ export function isRubyInternalDisplay(display: Css.Ident | string): boolean {
 export function establishesBFC(
   display: Css.Ident,
   position: Css.Ident,
-  float: Css.Ident,
+  float: Css.Val,
   overflow: Css.Ident,
   writingMode?: Css.Ident,
   parentWritingMode?: Css.Ident,

@@ -805,14 +805,65 @@ export class PageFloatLayoutContext
     return CssLogicalUtil.toPhysical(side, writingMode, direction);
   }
 
+  private toLogicalFloatSides(floatSide: string): string[] {
+    const sides = floatSide.split(" ");
+
+    // Convert to logical sides and remove duplicates
+    const logicalSides: string[] = [];
+    for (const side of sides) {
+      const logicalSide = this.toLogical(side);
+      if (!logicalSides.includes(logicalSide)) {
+        logicalSides.push(logicalSide);
+      }
+    }
+
+    // Convert "block-start block-end" to "snap-block" and
+    // "inline-start inline-end" to "snap-inline".
+    // More precisely, when multiple "*block*" values are found
+    // convert the first one to "snap-block" and remove the rest,
+    // and when multiple "*inline*" values are found convert the
+    // first one to "snap-inline" and remove the rest.
+    const logicalFloatSides: string[] = [];
+    let foundSnapBlock = false;
+    let foundSnapInline = false;
+    for (let i = 0; i < logicalSides.length; i++) {
+      const side = logicalSides[i];
+      if (side.includes("block")) {
+        if (!foundSnapBlock) {
+          // Convert to "snap-block" if another block side is found
+          if (logicalSides.slice(i + 1).some((s) => s.includes("block"))) {
+            logicalFloatSides.push("snap-block");
+            foundSnapBlock = true;
+          } else {
+            logicalFloatSides.push(side);
+          }
+        }
+      } else if (side.includes("inline")) {
+        if (!foundSnapInline) {
+          // Convert to "snap-inline" if another inline side is found
+          if (logicalSides.slice(i + 1).some((s) => s.includes("inline"))) {
+            logicalFloatSides.push("snap-inline");
+            foundSnapInline = true;
+          } else {
+            logicalFloatSides.push(side);
+          }
+        }
+      }
+    }
+
+    return logicalFloatSides;
+  }
+
   removeEndFloatFragments(floatSide: string) {
-    const logicalFloatSide = this.toLogical(floatSide);
+    const logicalFloatSide = this.toLogicalFloatSides(floatSide)[0];
     if (logicalFloatSide === "block-end" || logicalFloatSide === "inline-end") {
       let i = 0;
       while (i < this.floatFragments.length) {
         const fragment = this.floatFragments[i];
-        const logicalFloatSide2 = this.toLogical(fragment.floatSide);
-        if (logicalFloatSide2 === logicalFloatSide) {
+        const fragmentFloatSide = this.toLogicalFloatSides(
+          fragment.floatSide,
+        )[0];
+        if (fragmentFloatSide === logicalFloatSide) {
           this.removePageFloatFragment(fragment);
         } else {
           i++;
@@ -827,20 +878,25 @@ export class PageFloatLayoutContext
       this.getParent(floatReference).stashEndFloatFragments(float);
       return;
     }
-    const logicalFloatSide = this.toLogical(float.floatSide);
+    const logicalFloatSide = this.toLogicalFloatSides(float.floatSide)[0];
     if (
       logicalFloatSide === "block-end" ||
       logicalFloatSide === "snap-block" ||
-      logicalFloatSide === "inline-end"
+      logicalFloatSide === "inline-end" ||
+      logicalFloatSide === "snap-inline"
     ) {
       let i = 0;
       while (i < this.floatFragments.length) {
         const fragment = this.floatFragments[i];
-        const fragmentFloatSide = this.toLogical(fragment.floatSide);
+        const fragmentFloatSide = this.toLogicalFloatSides(
+          fragment.floatSide,
+        )[0];
         if (
           (fragmentFloatSide === logicalFloatSide ||
             (logicalFloatSide === "snap-block" &&
-              fragmentFloatSide === "block-end")) &&
+              fragmentFloatSide === "block-end") ||
+            (logicalFloatSide === "snap-inline" &&
+              fragmentFloatSide === "inline-end")) &&
           fragment.shouldBeStashedBefore(float)
         ) {
           this.stashedFloatFragments.push(fragment);
@@ -999,7 +1055,7 @@ export class PageFloatLayoutContext
         if (condition && !condition(f, this)) {
           return l;
         }
-        const logicalFloatSide = this.toLogical(f.floatSide);
+        const logicalFloatSide = this.toLogicalFloatSides(f.floatSide)[0];
         const area = f.area;
         const floatMinWrapBlock = f.continuations[0].float.floatMinWrapBlock;
         let top = l.top;
@@ -1112,13 +1168,17 @@ export class PageFloatLayoutContext
         condition,
       );
     }
-    let logicalFloatSide = this.toLogical(floatSide);
-    if (logicalFloatSide === "snap-block") {
+    const logicalFloatSides = this.toLogicalFloatSides(floatSide);
+    if (logicalFloatSides[0] === "snap-block") {
       if (!condition["block-start"] && !condition["block-end"]) {
         return null;
       }
+    } else if (logicalFloatSides[0] === "snap-inline") {
+      if (!condition["inline-start"] && !condition["inline-end"]) {
+        return null;
+      }
     } else {
-      if (!condition[logicalFloatSide]) {
+      if (!condition[logicalFloatSides[0]]) {
         return null;
       }
     }
@@ -1194,9 +1254,10 @@ export class PageFloatLayoutContext
           )
         : new GeometryUtil.Rect(inlineStart, blockStart, inlineEnd, blockEnd);
       if (
-        logicalFloatSide === "block-start" ||
-        logicalFloatSide === "snap-block" ||
-        logicalFloatSide === "inline-start"
+        logicalFloatSides[0] === "block-start" ||
+        logicalFloatSides[0] === "snap-block" ||
+        logicalFloatSides[0] === "inline-start" ||
+        logicalFloatSides[0] === "snap-inline"
       ) {
         if (
           !limitBlockStartEndValueWithOpenRect(
@@ -1208,9 +1269,10 @@ export class PageFloatLayoutContext
         }
       }
       if (
-        logicalFloatSide === "block-end" ||
-        logicalFloatSide === "snap-block" ||
-        logicalFloatSide === "inline-end"
+        logicalFloatSides[0] === "block-end" ||
+        logicalFloatSides[0] === "snap-block" ||
+        logicalFloatSides[0] === "inline-end" ||
+        logicalFloatSides[0] === "snap-inline"
       ) {
         if (
           !limitBlockStartEndValueWithOpenRect(
@@ -1232,10 +1294,10 @@ export class PageFloatLayoutContext
       blockSize = area.computedBlockSize;
       outerBlockSize = blockSize + area.getInsetBefore() + area.getInsetAfter();
       const availableBlockSize = (blockEnd - blockStart) * area.getBoxDir();
-      if (logicalFloatSide === "snap-block") {
+      if (logicalFloatSides[0] === "snap-block") {
         if (anchorEdge === null) {
           // Deferred from previous container
-          logicalFloatSide = "block-start";
+          logicalFloatSides[0] = "block-start";
         } else {
           const containerRect = this.container.getPaddingRect();
           const fromStart =
@@ -1248,14 +1310,28 @@ export class PageFloatLayoutContext
               anchorEdge -
               outerBlockSize);
           if (fromStart <= fromEnd) {
-            logicalFloatSide = "block-start";
+            logicalFloatSides[0] = "block-start";
           } else {
-            logicalFloatSide = "block-end";
+            logicalFloatSides[0] = "block-end";
           }
         }
-        if (!condition[logicalFloatSide]) {
+        if (!condition[logicalFloatSides[0]]) {
           if (condition["block-end"]) {
-            logicalFloatSide = "block-end";
+            logicalFloatSides[0] = "block-end";
+          } else {
+            return null;
+          }
+        }
+      } else if (logicalFloatSides[0] === "snap-inline") {
+        if (anchorEdge === null) {
+          // Deferred from previous container
+          logicalFloatSides[0] = "inline-start";
+        } else {
+          // FIXME: snap-inline should be resolved based on the anchor's inline position
+          if (condition["inline-start"]) {
+            logicalFloatSides[0] = "inline-start";
+          } else if (condition["inline-end"]) {
+            logicalFloatSides[0] = "inline-end";
           } else {
             return null;
           }
@@ -1265,8 +1341,8 @@ export class PageFloatLayoutContext
         return null;
       }
       if (
-        logicalFloatSide === "inline-start" ||
-        logicalFloatSide === "inline-end"
+        logicalFloatSides[0] === "inline-start" ||
+        logicalFloatSides[0] === "inline-end"
       ) {
         inlineSize = Sizing.getSize(area.clientLayout, area.element, [
           Sizing.Size.FIT_CONTENT_INLINE_SIZE,
@@ -1287,28 +1363,45 @@ export class PageFloatLayoutContext
     blockEnd -= blockOffset;
     inlineStart -= inlineOffset;
     inlineEnd -= inlineOffset;
-    switch (logicalFloatSide) {
-      case "inline-start":
-      case "block-start":
-      case "snap-block":
-        area.setInlinePosition(inlineStart, inlineSize);
-        area.setBlockPosition(blockStart, blockSize);
-        break;
-      case "inline-end":
-      case "block-end":
-        area.setInlinePosition(
-          inlineEnd - outerInlineSize * area.getInlineDir(),
-          inlineSize,
-        );
-        area.setBlockPosition(
-          blockEnd - outerBlockSize * area.getBoxDir(),
-          blockSize,
-        );
-        break;
-      default:
-        throw new Error(`unknown float direction: ${floatSide}`);
+
+    if (
+      logicalFloatSides.some(
+        (s) => s === "inline-start" || s === "snap-inline",
+      ) ||
+      (logicalFloatSides.length === 1 &&
+        (logicalFloatSides[0] === "block-start" ||
+          logicalFloatSides[0] === "snap-block"))
+    ) {
+      area.setInlinePosition(inlineStart, inlineSize);
+    } else if (
+      logicalFloatSides.some((s) => s === "inline-end") ||
+      (logicalFloatSides.length === 1 && logicalFloatSides[0] === "block-end")
+    ) {
+      area.setInlinePosition(
+        inlineEnd - outerInlineSize * area.getInlineDir(),
+        inlineSize,
+      );
     }
-    return logicalFloatSide;
+    if (
+      logicalFloatSides.some(
+        (s) => s === "block-start" || s === "snap-block",
+      ) ||
+      (logicalFloatSides.length === 1 &&
+        (logicalFloatSides[0] === "inline-start" ||
+          logicalFloatSides[0] === "snap-inline"))
+    ) {
+      area.setBlockPosition(blockStart, blockSize);
+    } else if (
+      logicalFloatSides.some((s) => s === "block-end") ||
+      (logicalFloatSides.length === 1 && logicalFloatSides[0] === "inline-end")
+    ) {
+      area.setBlockPosition(
+        blockEnd - outerBlockSize * area.getBoxDir(),
+        blockSize,
+      );
+    }
+
+    return logicalFloatSides.join(" ");
   }
 
   getFloatFragmentExclusions(): GeometryUtil.Shape[] {
@@ -1428,7 +1521,7 @@ export class PageFloatLayoutContext
     if (!clearSide) {
       return result;
     }
-    const logicalFloatSide = this.toLogical(floatSide);
+    const logicalFloatSide = this.toLogicalFloatSides(floatSide)[0];
     const logicalClearSide = this.toLogical(clearSide);
     let logicalSides: string[];
     if (logicalClearSide === "all") {

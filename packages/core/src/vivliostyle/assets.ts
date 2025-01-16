@@ -285,7 +285,7 @@ border-image-outset = [NUM | LENGTH]{1,4};
 border-image-repeat = [ stretch | repeat | round | space ]{1,2};
 bottom = APLENGTH;
 caption-side = top | bottom;
-clear = none | left | right | top | bottom | both | all | same;
+clear = none | left | right | top | bottom | inline-start | inline-end | block-start | block-end | both | all | same;
 clip = rect(ALENGTH{4}) | rect(SPACE(ALENGTH{4})) | auto;
 color = COLOR;
 LIST_STYLE_TYPE = IDENT;
@@ -510,7 +510,7 @@ crop-offset = auto | LENGTH;
 
 /* CSS Page Floats */
 float-reference = inline | column | region | page;
-float = block-start | block-end | inline-start | inline-end | snap-block | snap-inline | left | right | top | bottom | none | footnote;
+float = [ block-start || block-end || inline-start || inline-end || snap-block || snap-inline || left || right || top || bottom] | none | footnote;
 float-min-wrap-block = PPLENGTH;
 
 /* CSS Ruby */

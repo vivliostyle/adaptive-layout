@@ -2214,7 +2214,7 @@ function resolveFormattingContextHook(
   firstTime: boolean,
   display: Css.Ident,
   position: Css.Ident,
-  floatSide: Css.Ident,
+  floatSide: Css.Val,
   isRoot: boolean,
 ): TableFormattingContext | null {
   if (!firstTime) {

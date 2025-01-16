@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inline page floats (2 values)</title>
+    <style>
+      @page {
+        size: 800px;
+      }
+      :root {
+        column-count: 2;
+        column-rule: 1px black solid;
+        column-fill: auto;
+      }
+      section {
+        page-break-after: always;
+      }
+      .float {
+        background: rgba(255, 0, 0, 0.3);
+        padding: 5px;
+        border: blue solid 3px;
+        margin: 3px;
+        height: 90%;
+      }
+      .long {
+        height: 94%;
+      }
+      .column-float {
+        float-reference: column;
+      }
+      .page-float {
+        float-reference: page;
+      }
+      .inline-start {
+        float: inline-start block-end;
+      }
+      .inline-end {
+        float: inline-end block-start;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      Inline size of inline page floats should be fit-content (shrink-to-fit)
+      inline size.
+      <div class="float column-float inline-start">
+        col<br />inline-<br />start<br />block-<br />end<br />1
+      </div>
+      <div class="float page-float inline-start">
+        page<br />inline-<br />start<br />block-<br />end<br />2
+      </div>
+      <div class="float column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />3
+      </div>
+      <div class="float page-float inline-end">
+        page<br />inline-<br />end<br />block-<br />start<br />4
+      </div>
+      <div class="float column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />5
+      </div>
+      <div class="float column-float inline-start">
+        col<br />inline-<br />start<br />block-<br />end<br />6
+      </div>
+      <div class="float column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />7
+      </div>
+      <div class="float page-float inline-start">
+        page<br />inline-<br />start<br />block-<br />end<br />8
+      </div>
+    </section>
+    <section>
+      Inline size of inline page floats should be fit-content (shrink-to-fit)
+      inline size.
+      <div class="float long column-float inline-start">
+        col<br />inline-<br />start<br />block-<br />end<br />1
+      </div>
+      <div class="float long page-float inline-start">
+        page<br />inline-<br />start<br />block-<br />end<br />2
+      </div>
+      <div class="float long column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />3
+      </div>
+      <div class="float long page-float inline-end">
+        page<br />inline-<br />end<br />block-<br />start<br />4
+      </div>
+      <div class="float long column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />5
+      </div>
+      <div class="float long column-float inline-start">
+        col<br />inline-<br />start<br />block-<br />end<br />6
+      </div>
+      <div class="float long column-float inline-end">
+        col<br />inline-<br />end<br />block-<br />start<br />7
+      </div>
+      <div class="float long page-float inline-start">
+        page<br />inline-<br />start<br />block-<br />end<br />8
+      </div>
+    </section>
+  </body>
+</html>
